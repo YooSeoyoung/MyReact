@@ -11,6 +11,9 @@ import Example3 from "./Components/2_Effect/Example3";
 import Example4 from "./Components/2_Effect/Example4";
 import Button from "./Components/3_Props/Button";
 import Menu from "./Components/3_Props/Menu";
+import BasicRouter from "./Components/4_Router/BasicRouter";
+import ReactRouter from "./Components/4_Router/ReactRouter";
+import SendAPI from "./Components/2_Effect/SendAPI";
 
 // 모든 스타일 적용하기
 const GlobalStyle = createGlobalStyle`
@@ -19,6 +22,10 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     font-family: Poppins;
+  }
+  a{
+    text-decoration: none;
+    color : inherit;
   }
 `
 function App() {
@@ -33,7 +40,10 @@ function App() {
       {/* <Example3 /> */}
       {/* <Example4 /> */}
       {/* <Button /> */}
-      <Menu />
+      {/* <Menu /> */}
+      {/* <BasicRouter /> */}
+      {/* <ReactRouter /> */}
+      <SendAPI />
     </div>
   );
 

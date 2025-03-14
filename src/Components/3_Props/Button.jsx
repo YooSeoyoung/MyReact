@@ -27,9 +27,9 @@ const Box = styled.div`
 // }
 
 //props의 name을 가져오기!!(구조 분해 할당 방법)
-const Button = ({ name }) => {
+const Button = ({ name, onClick }) => {
     return (
-        <Box>
+        <Box onClick={onClick}>
             <p>{name}</p>
         </Box>
     )
