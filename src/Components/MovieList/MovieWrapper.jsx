@@ -1,0 +1,14 @@
+import React from 'react'
+import { Outlet } from 'react-router-dom'
+
+function MovieWrapper() {
+    return (
+        <div>
+            <h1>MovieWrapper입니다.</h1>
+            {/* 자식 컴포넌트를 보여주기 위함(oulet 위치에 자식 컴포넌트가 들어가는거임) */}
+            <Outlet />
+        </div>
+    )
+}
+
+export default MovieWrapper
