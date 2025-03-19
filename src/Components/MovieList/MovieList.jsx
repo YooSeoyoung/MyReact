@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import React, { useEffect, useState } from 'react'
 import { categories } from './api';
 import { getGenreListMovie, getGenreName } from './api';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -11,7 +12,7 @@ const Tab = styled.div`
     margin : 10px 0;
     gap: 5px;
 `;
-const Button = styled.button`
+export const Button = styled.button`
     width: 130px;
     height: 40px;
     background-color: dodgerblue;
@@ -29,7 +30,7 @@ const Button = styled.button`
         background-color: #32cd32;
     }
 `;
-const Container = styled.div`
+export const Container = styled.div`
 width : 100%;
 /* display: flex;
 flex-wrap: wrap; */
@@ -38,17 +39,17 @@ display: grid;
 /* grid-template-columns: 1fr 1fr 1fr; 아래랑 같은 의미 */
 grid-template-columns: repeat(3,1fr);
 `;
-const Card = styled.div`
+export const Card = styled.div`
 /* width: 32.75%; */
 width: 100%;
 border: 1px solid dodgerblue;
 cursor: pointer;
 padding: 10px;
 `;
-const Img = styled.img`
+export const Img = styled.img`
     width: 100%;
 `;
-const Text = styled.div`
+export const Text = styled.div`
     color: #333;
     overflow-wrap: break-word;
     word-break: break-all;
@@ -61,6 +62,8 @@ function MovieList() {
     const [loading, setLoading] = useState(true);
     const IMG_PATH = "https://image.tmdb.org/t/p/original";
     const [selectedCat, setSelectedCat] = useState(0); // 내가 선택한 버튼의 index를 저장
+    const [genreList, setGenreList] = useState([]);
+    const navigate = useNavigate(); // url 수정 함수
 
 
     // 1. await는 반드시 async 함수 안에 사용
@@ -73,10 +76,23 @@ function MovieList() {
 
     async function getMovies(index) {
         try {
-            //장르리스트 요청
-            if (!JSON.parse(sessionStorage.getItem("GenreList"))) {
-                let response = await getGenreListMovie();
-                sessionStorage.setItem("GenreList", JSON.stringify(response.data));
+            // 장르리스트가 상태에 없을 경우 처리
+            if (genreList.length === 0) {
+                const storedGenreList = JSON.parse(sessionStorage.getItem("GenreList"));
+                if (storedGenreList && storedGenreList.length > 0) {
+                    // 세션스토리지에 값이 있으면 상태 업데이트
+                    console.log("세션스토리지에 값이 있음");
+                    setGenreList(storedGenreList);
+                } else {
+                    // 세션스토리지에도 없으면 API 호출
+                    console.log("세션스토리지에도 없어서 API 호출");
+                    const response = await getGenreListMovie(); // 200 OK
+                    setGenreList(response.data.genres);
+                    sessionStorage.setItem(
+                        "GenreList",
+                        JSON.stringify(response.data.genres)
+                    );
+                }
             }
             //무비리스트 요청
             let response = await categories[index].func(); //200
@@ -103,10 +119,10 @@ function MovieList() {
             <Container>
                 {loading ? <p>로딩중</p> :
                     data.results.map((movie) =>
-                        <Card key={movie.id}>
+                        <Card key={movie.id} onClick={() => navigate(`${movie.id}`)}>
                             <Img src={IMG_PATH + movie.poster_path}></Img>
                             <Text>타이틀 : {movie.title}</Text>
-                            <Text>장르 : {getGenreName(movie.genre_ids)} </Text>
+                            <Text>장르 : {getGenreName(genreList, movie.genre_ids)} </Text>
                             <hr />
                             <Text>{movie.overview}</Text>
                         </Card>
