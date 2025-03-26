@@ -15,6 +15,7 @@ import BasicRouter from "./Components/4_Router/BasicRouter";
 import ReactRouter from "./Components/4_Router/ReactRouter";
 import SendAPI from "./Components/2_Effect/SendAPI";
 import MovieListMain from "./Components/MovieList/MovieListMain";
+import ChatRoomMain from "./Components/ChatRoom/ChatRoomMain";
 
 // 모든 스타일 적용하기
 const GlobalStyle = createGlobalStyle`
@@ -45,7 +46,8 @@ function App() {
       {/* <BasicRouter /> */}
       {/* <ReactRouter /> */}
       {/* <SendAPI /> */}
-      <MovieListMain />
+      {/* <MovieListMain /> */}
+      <ChatRoomMain />
     </div>
   );
 
