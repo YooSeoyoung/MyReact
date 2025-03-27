@@ -54,7 +54,6 @@ function App() {
       <Octagon />
       <PopUp />
       <Exam />
-
     </div>
   );
 }
