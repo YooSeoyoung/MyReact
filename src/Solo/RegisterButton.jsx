@@ -5,19 +5,20 @@ const Button = styled.button`
     width: 80px;
     height: 40px;
     border-radius: 10px;
-    background-color: white;
+    background-color: #ffb4a7;
     border: 1px solid white;
     font-size: 1rem;
     font-weight: 700;
-    margin-right: 10px;
+    color: white;
 `
 
-function LoginButton() {
+
+function RegisterButton() {
     return (
         <div>
-            <Button>로그인</Button>
+            <Button>회원가입</Button>
         </div>
     )
 }
 
-export default LoginButton
+export default RegisterButton

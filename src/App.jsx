@@ -14,7 +14,10 @@ import ReactRouter from './Components/4_Router/ReactRouter';
 import SendAPI from './Components/2_Effect/SendAPI';
 import MovieListMain from './Components/MovieList/MovieListMain';
 import ChatRoomMain from './Components/ChatRoom/ChatRoomMain';
-import Rectangle from './Solo/Rectangle';
+import Octagon from './Solo/Octagon';
+import PopUp from './Solo/PopUp';
+import Exam from './Solo/Exam';
+import Header from './Solo/Header';
 
 // 모든 스타일 적용하기
 const GlobalStyle = createGlobalStyle`
@@ -47,7 +50,11 @@ function App() {
       {/* <SendAPI /> */}
       {/* <MovieListMain /> */}
       {/* <ChatRoomMain /> */}
-      <Rectangle />
+      <Header />
+      <Octagon />
+      <PopUp />
+      <Exam />
+
     </div>
   );
 }
