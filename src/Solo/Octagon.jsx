@@ -95,6 +95,7 @@ const Input = styled.input`
   border: none;
   outline: none;
   padding-left: 30px;
+  ${(props) => props.readonly && 'background-color: #f0f0f0;'}
 `;
 
 const ImgInput = styled.input`
@@ -137,12 +138,15 @@ function Octagon({
   imgwidth,
   imgheight,
   buttoncolor,
+  isProfilePage,
+  isSignUpPage
 }) {
   const [image, setImage] = useState(Profile);
   const [name, setName] = useState('');
   const [birthday, setBirthday] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [isEditable, setIsEditable] = useState(false);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -154,6 +158,9 @@ function Octagon({
   const FileInput = () => {
     document.getElementById('file-upload').click();
   };
+  const handleIconClick = () => {
+    setIsEditable(true);   // 클릭 시 수정 가능하게(readonly false로 만들기)
+  };
   return (
     <CardWrap width={width}>
       <Card
@@ -162,9 +169,12 @@ function Octagon({
         cardbackground={cardbackground}
       >
         <Top>
-          <ModifyTop>
-            <IconModify />
-          </ModifyTop>
+          {isProfilePage && (
+            <ModifyTop onClick={handleIconClick}>
+              <IconModify />
+            </ModifyTop>
+          )}
+
           <Img
             src={image}
             onClick={FileInput}
@@ -191,6 +201,7 @@ function Octagon({
                 autoComplete="off" // 자동완성 기능 끄기
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                readOnly={!isEditable}
               />
             </SmallBox>
             <SmallBox>
@@ -201,6 +212,7 @@ function Octagon({
                 autoComplete="off" // 자동완성 기능 끄기
                 value={birthday}
                 onChange={(e) => setBirthday(e.target.value)}
+                readOnly={isProfilePage || !isSignUpPage} // 회원가입때만 활성화
               />
             </SmallBox>
             <SmallBox>
@@ -211,6 +223,7 @@ function Octagon({
                 autoComplete="off" // 자동완성 기능 끄기
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                readOnly={!isEditable}
               />
             </SmallBox>
             <SmallBox>
@@ -221,12 +234,16 @@ function Octagon({
                 autoComplete="off" // 자동완성 기능 끄기
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
+                readOnly={!isEditable}
               />
             </SmallBox>
           </Buttom>
-          <ButtonWrap>
-            <Button buttoncolor={buttoncolor}>수정하기</Button>
-          </ButtonWrap>
+          {isProfilePage && (
+            <ButtonWrap>
+              <Button buttoncolor={buttoncolor}>수정하기</Button>
+            </ButtonWrap>
+          )}
+
         </ButtomWrap>
       </Card>
     </CardWrap>

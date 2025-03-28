@@ -36,7 +36,7 @@ const H1 = styled.h1`
 `;
 const Buttom = styled.div``;
 
-function PopUp({ width, cardwidth, cardheight, topbackground }) {
+function PopUp({ width, cardwidth, cardheight, topbackground, name }) {
   return (
     <CardWrap width={width}>
       <Card cardwidth={cardwidth} cardheight={cardheight}>
@@ -44,7 +44,7 @@ function PopUp({ width, cardwidth, cardheight, topbackground }) {
           <TopX>
             <IconClose />
           </TopX>
-          <H1>설정</H1>
+          <H1 name={name}>{name}</H1>
         </Top>
         <Buttom></Buttom>
       </Card>
